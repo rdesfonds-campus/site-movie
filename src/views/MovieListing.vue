@@ -3,6 +3,12 @@
     <AppNavbar />
     <SearchBar v-model="searchQuery" />
     <MovieGrid :movies="filteredMovies" />
+    <Pagination
+      :currentPage="currentPage"
+      :totalPages="42"
+      @prev="currentPage--"
+      @next="currentPage++"
+    />
   </div>
 </template>
 
@@ -11,8 +17,10 @@ import { ref, computed } from 'vue'
 import AppNavbar from '@/components/AppNavbar.vue'
 import SearchBar from '@/components/SearchBar.vue'
 import MovieGrid from '@/components/MovieGrid.vue'
+import Pagination from '@/components/Pagination.vue'
 
 const searchQuery = ref('')
+const currentPage = ref(1)
 
 const movies = [
   { id: 1, title: 'Inception', vote_average: 8.8, poster_url: 'https://picsum.photos/seed/1/200/300' },
