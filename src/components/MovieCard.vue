@@ -23,14 +23,12 @@ defineProps({
   overflow: hidden;
   cursor: pointer;
 }
-
 .card img {
   width: 100%;
   aspect-ratio: 2/3;
   object-fit: cover;
   background: #eee;
 }
-
 .card-info {
   padding: 8px;
 }

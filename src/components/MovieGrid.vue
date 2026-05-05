@@ -4,8 +4,8 @@
       v-for="movie in movies"
       :key="movie.id"
       :title="movie.title"
-      :rating="movie.vote_average"
-      :posterUrl="movie.poster_url"
+      :rating="movie.imdb ? movie.imdb.rating : 0"
+      :posterUrl="movie.poster"
     />
   </div>
 </template>
