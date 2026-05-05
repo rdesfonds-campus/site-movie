@@ -16,7 +16,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import axios from 'axios'
+import api from '@/api/axios.js'
 import AppNavbar from '@/components/AppNavbar.vue'
 
 const user = ref(null)
@@ -33,12 +33,9 @@ const initials = computed(() => {
 
 onMounted(async () => {
   const token = localStorage.getItem('token')
-  if (!token) {
-    router.push('/login')
-    return
-  }
+  if (!token) { router.push('/login'); return }
   try {
-    const res = await axios.get('http://localhost:8000/api/profile', {
+    const res = await api.get('/api/profile', {
       headers: { Authorization: `Bearer ${token}` }
     })
     user.value = res.data
@@ -61,7 +58,6 @@ const handleLogout = () => {
   justify-content: center;
   background: #f5f5f5;
 }
-
 .profile-card {
   background: white;
   padding: 48px;
@@ -75,7 +71,6 @@ const handleLogout = () => {
   align-items: center;
   gap: 16px;
 }
-
 .avatar {
   width: 80px;
   height: 80px;
@@ -88,17 +83,8 @@ const handleLogout = () => {
   align-items: center;
   justify-content: center;
 }
-
-h1 {
-  font-size: 1.6rem;
-  font-weight: 700;
-}
-
-.email {
-  color: #888;
-  font-size: 0.95rem;
-}
-
+h1 { font-size: 1.6rem; font-weight: 700; }
+.email { color: #888; font-size: 0.95rem; }
 .logout-btn {
   margin-top: 8px;
   padding: 12px 32px;
@@ -111,8 +97,6 @@ h1 {
   cursor: pointer;
   transition: background 0.2s;
 }
-
-.logout-btn:hover {
-  background: #c62828;
-}
+.logout-btn:hover { background: #c62828; }
+.loading { text-align: center; padding: 80px; color: #999; }
 </style>

@@ -9,7 +9,7 @@
         <div class="badges">
           <span class="badge">📅 {{ movie.year }}</span>
           <span class="badge">⭐ {{ movie.imdb ? movie.imdb.rating : 'N/A' }} / 10</span>
-          <span class="badge" v-for="genre in movie.genres" :key="genre">{{ genre }}</span>
+          <span class="badge" v-for="genre in movie.genres" :key="genre.id">{{ genre.label }}</span>
         </div>
         <p class="plot">{{ movie.plot }}</p>
       </div>
@@ -21,14 +21,14 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import axios from 'axios'
+import api from '@/api/axios.js'
 import AppNavbar from '@/components/AppNavbar.vue'
 
 const route = useRoute()
 const movie = ref(null)
 
 onMounted(async () => {
-  const res = await axios.get(`http://localhost:8000/api/movies/${route.params.id}`)
+  const res = await api.get(`/api/movies/${route.params.id}`)
   movie.value = res.data
 })
 </script>
@@ -41,7 +41,6 @@ onMounted(async () => {
   max-width: 1000px;
   margin: 0 auto;
 }
-
 .poster {
   width: 280px;
   min-width: 280px;
@@ -49,13 +48,11 @@ onMounted(async () => {
   object-fit: cover;
   box-shadow: 0 8px 32px rgba(0,0,0,0.2);
 }
-
 .info {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
-
 .back-btn {
   width: fit-content;
   padding: 8px 16px;
@@ -67,23 +64,17 @@ onMounted(async () => {
   color: #333;
   transition: background 0.2s;
 }
-
-.back-btn:hover {
-  background: #e0e0e0;
-}
-
+.back-btn:hover { background: #e0e0e0; }
 h1 {
   font-size: 2.2rem;
   font-weight: 700;
   line-height: 1.2;
 }
-
 .badges {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
-
 .badge {
   padding: 4px 12px;
   background: #f0f0f0;
@@ -91,14 +82,12 @@ h1 {
   font-size: 0.85rem;
   color: #444;
 }
-
 .plot {
   font-size: 1rem;
   line-height: 1.8;
   color: #555;
   max-width: 580px;
 }
-
 .loading {
   text-align: center;
   padding: 80px;

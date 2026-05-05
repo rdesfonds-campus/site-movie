@@ -14,7 +14,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import axios from 'axios'
+import api from '@/api/axios.js'
 import AppNavbar from '@/components/AppNavbar.vue'
 import SearchBar from '@/components/SearchBar.vue'
 import MovieGrid from '@/components/MovieGrid.vue'
@@ -26,7 +26,7 @@ const currentPage = ref(1)
 const totalPages = ref(1)
 
 const fetchMovies = async (page = 1) => {
-  const res = await axios.get(`http://localhost:8000/api/movies?page=${page}`)
+  const res = await api.get(`/api/movies?page=${page}`)
   movies.value = res.data['member']
   totalPages.value = Math.ceil(res.data['totalItems'] / 30)
 }
