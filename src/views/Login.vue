@@ -44,10 +44,10 @@ const router = useRouter()
 const handleLogin = async () => {
   errorMessage.value = ''
   try {
-    const res = await api.post('/api/login', {
-      email: email.value,
-      password: password.value,
-    })
+    const res = await api.post('/api/auth', {
+  email: email.value,
+  password: password.value,
+})
     localStorage.setItem('token', res.data.token)
     router.push('/')
   } catch (e) {
