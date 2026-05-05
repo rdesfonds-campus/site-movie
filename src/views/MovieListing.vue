@@ -1,13 +1,18 @@
 <template>
   <div>
     <AppNavbar />
-    <MovieGrid :movies="movies" />
+    <SearchBar v-model="searchQuery" />
+    <MovieGrid :movies="filteredMovies" />
   </div>
 </template>
 
 <script setup>
+import { ref, computed } from 'vue'
 import AppNavbar from '@/components/AppNavbar.vue'
+import SearchBar from '@/components/SearchBar.vue'
 import MovieGrid from '@/components/MovieGrid.vue'
+
+const searchQuery = ref('')
 
 const movies = [
   { id: 1, title: 'Inception', vote_average: 8.8, poster_url: 'https://picsum.photos/seed/1/200/300' },
@@ -19,4 +24,10 @@ const movies = [
   { id: 7, title: 'The Matrix', vote_average: 8.7, poster_url: 'https://picsum.photos/seed/7/200/300' },
   { id: 8, title: 'Goodfellas', vote_average: 8.7, poster_url: 'https://picsum.photos/seed/8/200/300' },
 ]
+
+const filteredMovies = computed(() =>
+  movies.filter(m =>
+    m.title.toLowerCase().includes(searchQuery.value.toLowerCase())
+  )
+)
 </script>
