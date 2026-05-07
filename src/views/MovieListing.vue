@@ -28,7 +28,7 @@ const totalPages = ref(1)
 const fetchMovies = async (page = 1) => {
   const res = await api.get(`/api/movies?page=${page}`)
   movies.value = res.data['member']
-  totalPages.value = Math.ceil(res.data['totalItems'] / 30)
+  totalPages.value = Math.ceil(res.data['totalItems'] / 20)
 }
 
 const changePage = (page) => {

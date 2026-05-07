@@ -24,6 +24,7 @@ const isLoggedIn = computed(() => !!localStorage.getItem('token'))
   padding: 16px 32px;
   background: #1a1a1a;
   color: white;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .brand {
